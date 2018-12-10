@@ -24,7 +24,16 @@ the ANDROID_HOME environment. Review this guide thoroughly. https://facebook.git
 
 3.react-native: could not delete path,C:\Users\chris\Property\android\app\build\generated\source\r\debug\android\arch, this i solved by following 
 this https://stackoverflow.com/questions/35674066/errorexecution-failed-for-task-appprocessdebugresources-java-io-ioexcept.
-
+ 
 The project ran successfully after
 
+The are a few issues with following the tutorial flow by flow from this point moving forward. The instructions here https://www.raywenderlich.com/247-react-native-tutorial-building-android-apps-with-javascript leave out neccessary order of what to copy from where and paste the where. If you find any inconsistencies like i did, here is what you should do.
 
+Steps to resolve the inconsistent instructions
+1.I suggest you download his project from the link he has provided and modify you project folder so that you have the same javascript files he has, plus include the images folder.
+2. Run the project, and if your case is similar to mine, you will see this error in your emulator::undefined is not an object(evaluating RNGestureHandlerModule.state)
+3.Googling it as is will effectively should land you here https://stackoverflow.com/questions/52861437/undefined-is-not-an-object-evaluating-rngesturehandlermodule-state whose instructions you should follow.
+4.Following these instructions might land you here at the very end:react-native link react-native-gesture-handler is it is most like that cmd will say the command is unrecognized. To resolve it, type yarn in your cmd and when execution finishes type react-native link react-native-gesture-handler again, it should work. If it doesn't perhaps another version of react-native may need to be installed.
+5.Try running the project again, and if it results in this error:react-native:invariant violation:the navigation prop is missing for this navigator. Follow the tutorial here https://stackoverflow.com/questions/53367195/invariant-violation-the-navigation-prop-is-missing-for-this-navigator. It has something to do with the changes in the navigation container .
+
+I will update the project once it is complete.
