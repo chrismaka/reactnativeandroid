@@ -27,7 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
+ 
 'use strict';
 
 import React, { Component } from 'react'
@@ -35,96 +35,71 @@ import {
   StyleSheet,
   Image,
   View,
-  TouchableHighlight,
-  FlatList,
-  Text,
+  Text
 } from 'react-native';
 
-class ListItem extends React.PureComponent {
-  _onPress = () => {
-    this.props.onPressItem(this.props.index);
-  }
-
-  render() {
-    const item = this.props.item;
-    const price = item.price_formatted.split(' ')[0];
-    return (
-      <TouchableHighlight
-        onPress={this._onPress}
-        underlayColor='#dddddd'>
-        <View>
-          <View style={styles.rowContainer}>
-            <Image style={styles.thumb} source={{ uri: item.img_url }} />
-            <View style={styles.textContainer}>
-              <Text style={styles.price}>{price}</Text>
-              <Text style={styles.title}
-                numberOfLines={1}>{item.title}</Text>
-            </View>
-          </View>
-          <View style={styles.separator}/>
-        </View>
-      </TouchableHighlight>
-    );
-  }
-}
-
 type Props = {};
-export default class SearchResults extends Component<Props> {
+export default class PropertyView extends Component<Props> {
   static navigationOptions = {
-    title: 'Results',
+    title: 'Property',
   };
-
-  _keyExtractor = (item, index) => index.toString();
-
-  _renderItem = ({item, index}) => (
-    <ListItem
-      item={item}
-      index={index}
-      onPressItem={this._onPressItem}
-    />
-  );
-
-  _onPressItem = (index) => {
-    const { navigate, state } = this.props.navigation;
-    navigate('Property', {property: state.params.listings[index]});
-  }
 
   render() {
     const { params } = this.props.navigation.state;
+    var property = params.property;
+    var stats = property.bedroom_number + ' bed ' + property.property_type;
+    if (property.bathroom_number) {
+      stats += ', ' + property.bathroom_number + ' ' + (property.bathroom_number > 1
+        ? 'bathrooms' : 'bathroom');
+    }
+
+    var price = property.price_formatted.split(' ')[0];
+
     return (
-      <FlatList
-        data={params.listings}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
-      />
+      <View style={styles.container}>
+        <Image style={styles.image}
+            source={{uri: property.img_url}} />
+        <View style={styles.heading}>
+          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.title}>{property.title}</Text>
+          <View style={styles.separator}/>
+        </View>
+        <Text style={styles.description}>{stats}</Text>
+        <Text style={styles.description}>{property.summary}</Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  thumb: {
-    width: 80,
-    height: 80,
-    marginRight: 10
+  container: {
+    marginTop: 65
   },
-  textContainer: {
-    flex: 1
+  heading: {
+    backgroundColor: '#F8F8F8',
   },
   separator: {
     height: 1,
-    backgroundColor: '#dddddd'
+    backgroundColor: '#DDDDDD'
+  },
+  image: {
+    width: 400,
+    height: 300
   },
   price: {
     fontSize: 25,
     fontWeight: 'bold',
+    margin: 5,
     color: '#48BBEC'
   },
   title: {
     fontSize: 20,
+    margin: 5,
     color: '#656565'
   },
-  rowContainer: {
-    flexDirection: 'row',
-    padding: 10
-  },
+  description: {
+    fontSize: 18,
+    margin: 5,
+    color: '#656565'
+  }
 });
