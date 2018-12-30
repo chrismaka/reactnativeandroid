@@ -1,2 +1,28 @@
-Navigate from list entry for a house to a fresh screen with the full details for that house onclick.
-First
+The tutorial challenge: Navigating from list entry for a house to a fresh screen with the full details for that house onclick.
+First:
+I implemented the the _onPressItem method in the SearchResults.js so that clicking any item opens up a new screen with a simple text on it.
+ -_onPressItem = (index) => {
+    let id = this.props.id;
+    this.props.navigation.navigate('Details', {id: id})
+  }
+  
+ Using the navigation prop(which is a prop ie something that helps you access attributes of views within that particular class, so that you can masnipulate or display the views).
+ 
+ According to this https://reactnavigation.org/docs/en/navigation-prop.html each screen/js representing a screen is automatically assigned a navigation prop that has fuctions that handle
+ the different aspects of navigating from one screen to another. I would like to think of a navigation prop as a built in class with methods like navigate to handle moving from
+ one screen to another.
+ 
+Second:
+I tried to solve the tutorial challenge on my own but failed to my limited knowledge on Flatlists, passing parameters to routes, fat arrow functions
+,state, touchables, using listviews and so much more.
+
+However, reading through the following resources helped make sense of the code and has given me a slightly better understanding of using react-native.
+
+http://www.reactnativeexpress.com/fat_arrow_functions
+https://facebook.github.io/react-native/docs/using-a-listview
+https://facebook.github.io/react-native/docs/navigation
+https://reactnavigation.org/docs/en/state-persistence.html
+https://reactnavigation.org/docs/en/params.html
+https://reactnavigation.org/docs/en/navigating.html
+https://medium.com/react-native-institute/how-to-use-git-with-react-native-687c12431e36
+https://facebook.github.io/react-native/docs/props
